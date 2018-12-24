@@ -41,25 +41,44 @@ $(function()
 			$grp_sid.addClass("has-error");
 			has_error = true;
 		}
-		
-		if (has_error == true) {
-			$res_tsv.text("-");
-			$res_tsvttf.text("-");
-			return false;
-		}
-		
+				
 		var tid = parseInt(tid_val, 10);
 		var sid = parseInt(sid_val, 10);
 		var tsv = (tid ^ sid) >>> 4;
 		var tsvttf = (tid ^ sid) >>> 3;
 		
-		// More minor error checking.
-		if (tsv > 4096) {
+		//Fixed Error Checks
+		if (tid < 0 || tid > 65535) {
 			$res_tsv.text(err_str);
+			$res_tsvttf.text(err_str);
+			$grp_tid.addClass("has-error");
+			has_error = true;
+		}
+		if (sid < 0 || sid > 65535) {
+			$res_tsv.text(err_str);
+			$res_tsvttf.text(err_str);
+			$grp_sid.addClass("has-error");
+			has_error = true;
+		}
+		
+		if (has_error == true) {
+			$res_tsv.text("-");
+			$res_tsvttf.text("-");
+			$res_tsvttf.css({'color':'black'});
+			$inp_tid.css({'border-color':'default'});
+			$inp_sid.css({'border-color':'default'});
 			return false;
 		}
-		if (tsvttf > 8192) {
+		
+		// More minor error checking.
+		if (tsv > 4095) {
 			$res_tsv.text(err_str);
+			$res_tsvttf.text(err_str);
+			return false;
+		}
+		if (tsvttf > 8191) {
+			$res_tsv.text(err_str);
+			$res_tsvttf.text(err_str);
 			return false;
 		}
 		
