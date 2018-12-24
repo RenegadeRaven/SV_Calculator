@@ -67,7 +67,7 @@ $(function()
 		if (has_error == true) {
 			$res_tsv.text("-");
 			$res_tsvttf.text("-");
-			$res_tsvttf.css({'color':'black'});
+			$res_tsvttf.css({'color':'default'});
 			$inp_tid.css({'border-color':'default'});
 			$inp_sid.css({'border-color':'default'});
 			return false;
@@ -101,7 +101,7 @@ $(function()
 			//$ccg_img.changeSource(i[tsvttf])
 			$cc_img.removeClass("collapse");
 		} else {
-			$res_tsvttf.css({'color':'black'});
+			$res_tsvttf.css({'color':'default'});
 			$inp_tid.css({'border-color':'default'});
 			$inp_sid.css({'border-color':'default'});
 			$cc_img.addClass("collapse");
