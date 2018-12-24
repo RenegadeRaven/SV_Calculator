@@ -65,6 +65,17 @@ $(function()
 		
 		$res_tsv.text(tsv);
 		$res_tsvttf.text(tsvttf);
+		
+		if (tsvttf < 4) {
+			$res_tsvttf.css({'color':'rgb(249, 92, 221)'});
+			$inp_tid.css({'border-color':'rgb(249, 92, 221)'});
+			$inp_sid.css({'border-color':'rgb(249, 92, 221)'});
+		} else {
+			$res_tsvttf.css({'color':'black'});
+			$inp_tid.css({'border-color':'default'});
+			$inp_sid.css({'border-color':'default'});
+		}
+		
 		return false;
 	});
 	
@@ -111,6 +122,7 @@ $(function()
 		
 		$res_esv.text(esv);
 		$res_esvttf.text(esvttf);
+		
 		return false;
 	});
 });
