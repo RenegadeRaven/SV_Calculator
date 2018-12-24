@@ -13,6 +13,9 @@ $(function()
 	var $inp_sid = $("#input_sid");
 	var $inp_pid = $("#input_pid");
 	
+	var $cc_img = $("#ccimg");
+	var $ccg_img = $("#ccgimg");
+	
 	var $res_tsv = $("#result_tsv");
 	var $res_tsvttf = $("#result_tsvttf");
 	var $res_esv = $("#result_esv");
@@ -85,16 +88,25 @@ $(function()
 		$res_tsv.text(tsv);
 		$res_tsvttf.text(tsvttf);
 		
+		var g = new Array(" (Shiny Group 1)", " (Shiny Group 2)", " (Shiny Group 3)", " (Shiny Group 4)");
+		var i = new Array("resources/ccg1.png", "resources/ccg2.png", "resources/ccg3.png", "resources/ccg4.png")
+		
 		if (tsvttf < 4) {
 			$res_tsvttf.css({'color':'rgb(249, 92, 221)'});
 			$inp_tid.css({'border-color':'rgb(249, 92, 221)'});
 			$inp_sid.css({'border-color':'rgb(249, 92, 221)'});
+			var res = tsvttf + g[tsvttf].sup();
+			document.getElementById("result_tsvttf").innerHTML = res;
+			document.getElementById("ccgimg").src=i[tsvttf];
+			//$ccg_img.changeSource(i[tsvttf])
+			$cc_img.removeClass("collapse");
 		} else {
 			$res_tsvttf.css({'color':'black'});
 			$inp_tid.css({'border-color':'default'});
 			$inp_sid.css({'border-color':'default'});
+			$cc_img.addClass("collapse");
 		}
-		
+
 		return false;
 	});
 	
