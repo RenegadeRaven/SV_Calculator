@@ -176,3 +176,19 @@ function fixFullWidth(str)
 	}
 	return str;
 }
+
+$(function() {
+  $('.spoiler-toggle').click(function(e) {
+    e.preventDefault();
+    $(this).parent().toggleClass('open');
+	
+  })
+})
+function btnToggle() {
+  var x = document.getElementById("spt");
+  if (x.innerHTML === "Hide") {
+    x.innerHTML = "Show";
+  } else {
+    x.innerHTML = "Hide";
+  }
+}

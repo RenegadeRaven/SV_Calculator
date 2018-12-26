@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 	<meta charset="utf-8" />
 	<title>Pokémon Shiny Value (TSV/ESV) Checker</title>
-	<link rel="shortcut icon" href="resources/icon.png" type="image/png">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi">
+	<link rel="shortcut icon" href="resources/icon.png" type="image/png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi" />
 	<link type="text/css" href="resources/bootstrap.min.css" rel="stylesheet" media="screen" />
 	<link type="text/css" href="resources/bootstrap-theme.min.css" rel="stylesheet" media="screen" />
 	<link type="text/css" href="resources/overrides.css" rel="stylesheet" media="screen" />
@@ -16,7 +16,18 @@
 	<script type="text/javascript" src="frontend/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="frontend/main.js" charset="utf-8"></script>
 	<style type="text/css">
-	.auto-style1 {
+	@font-face {
+    font-family: "Pokemon_Solid";
+    //src: local(resources/Pokemon_Solid.ttf) format("truetype");
+    src: url(https://github.com/PlasticJustice/SV_Calculator/raw/gh-pages/resources/Pokemon_Solid.ttf) format("truetype");
+}
+.auto-title {
+		text-decoration: underline;
+	text-align: center;
+	font-size: 26pt;
+	font-family: Pokemon_Solid;
+}
+.auto-style1 {
 		color: #F95CDD;
 	}
 	#ccgd{
@@ -26,14 +37,47 @@
       height: 0px;
   	  overflow: hidden;
 }
+.spoiler {
+  border-radius: 12px;
+  /*background-color: #97befc;*/
+  padding: 1%;
+  display: table;
+  margin: auto;
+  background-image: url("https://plasticjustice.github.io/SV_Calculator/resources/bg.png");
+}
+
+.spoiler-header, .spoiler-toggle {
+  /* float: left; */
+  display: inline-block;
+  Margin-left: 23rem;
+  font-size: 22px;
+  text-align: center;
+}
+
+.spoiler-toggle {
+  margin-left: 14rem;
+}
+
+.spoiler > .spoiler-content {
+  display: none;
+}
+
+.spoiler.open > .spoiler-content {
+  display: block;
+  background-image: url("https://plasticjustice.github.io/SV_Calculator/resources/bg.png");
+  margin-top: 1rem;
+  padding: 1%;
+  text-align: left;
+}
 	</style>
 </head>
 <body background="resources/bg.png" style="overflow: hidden; height: 1099px">
 	<div class="page index" id="root">
 		<div class="container">
-			<div class="intro">
-				<center><u><font face="Arial"><h1>Pokémon Shiny Value (TSV/ESV) Checker</h1></font></u></center>
-				<br>
+			<div class="intro"><br/>
+			<u><center>
+				<img src="resources/title.png" alt="pokemon-font" border="0" style="text-decoration: underline"/></center></u><br/>
+				<!--<h1 class="auto-title">Pokémon Shiny Value (TSV/ESV) Checker</h1><br/>-->
 				<!--<p class="languages"><a href="index-en.php" class="active">English</a> <a href="index-jp.php" class="">æ—¥æœ¬èªž</a></p>-->
 				<a href="https://www.furretturret.com/resources/hd/shiny"><img src="resources/shuckle.gif" width="109" height="96" class="mascot" /></a>
 				<div class="intro-text"><p>This tool will let you check the "shiny value" of a player or of an egg (a value between 0 and 8191 for Gen III to V, and between 0 and 4095 for Gen VI and up). If the egg and the player's SVs are the same, the resulting Pokémon will be hatched shiny. This tool can also calculate Pokémon Shiny Value (PSV), just use the ESV section.</p><p><strong>Note:</strong> This tool is only accurate for Pokémon games Gen III and up. Don't input decimal PID—convert them to hexadecimal first.</p>
@@ -43,7 +87,7 @@
 					<a href="resources/Cute%20Charm%20Glitch%20IDs.zip">here</a>.</p><!--<p>For more information, view the <a href="http://www.reddit.com/r/SVExchange/comments/1xp9km/tsvesv_checker_tool_for_when_pok%C3%A9check_gen6/">info topic on r/svexchange</a>. You can download this page using your browser, and it should work offlineâ€”or you can use <a href="https://dl.dropboxusercontent.com/u/12206225/SVHelper.zip">Kaphotics' Windows SV Helper</a>.</p>--></div>
 			</div>
 		</div>
-		<br>
+		<br/>
 		<div class="forms">
 			
 			<div class="band blue">
@@ -85,8 +129,8 @@
 				</div>
 			</div>
 			<div id="ccimg" class="collapse"><center>
-				<img src="resources/ccg.png" class="ccg" id="ccgimg">
-				</center><br></div>
+				<img src="resources/ccg.png" class="ccg" id="ccgimg"/>
+				</center><br/></div>
 			<div class="band green">
 				<div class="container">
 					<form class="sv-chk" role="form">
@@ -125,19 +169,28 @@
 			<div class="outro">
 				<div class="outro-text"><p>This site is a fork of <a href="http://tomatoland.org/dada/pkmn/sv/">a site</a> originally written by <a href="https://twitter.com/dada78641">Dada</a>, which you can go to by clicking <a href="http://tomatoland.org/dada/pkmn/sv/">here</a>.</p>
 					<!-- If you have a question, please <a href="http://www.reddit.com/message/compose/?to=dada_">message me on Reddit</a>, <a href="mailto:michiel@tomatoland.org">email me</a>, or post a topic in <a href="http://reddit.com/r/svexchange">r/svexchange</a>.</p>--></div>
-			</div>
-			<div class="changelog" style="width: 794px;">
-			<h4><u><strong>Changelog:</strong></u></h4>
-				<p><strong>Dec. 23 2018:</strong></p>
-				<p>- Gen III-V TSV now turns pink if it can be used for the Cute 
-				Charm Glitch in Gen IV<br>- If TSV is Cute Charm Glitch 
-				compatible, it tells you which Shiny Group<br>- Added download for a list of all Cute Charm Glitch 
-				compatible IDs<br>- Corrected Error checks</p>
-				<p>&nbsp;</p>
-				<p><strong>Sept. 8 2018:</strong></p>
-				- Added Gen III to V support.<br>- Changed some text and site structure to reflect the support mentioned above.<br>- Added a background.<br>- Changed Mascot (because shiny Shuckle).<br>- Other minor changes.
-			</div>
-		</div>
+			</div><br/><br/><br/><br/>
+			<div class="spoiler">
+  <div class="spoiler-header"><center><strong><u>Changelog:</u></strong></center></div>
+  <button class="btn btn-block btn-default spoiler-toggle" style="width: 40px; height: 25px; font-size: x-small;" id="spt" onclick="btnToggle()">Show</button>
+  <div class="spoiler-content">
+    <strong>Dec. 23 2018:</strong><br/>
+- Gen III-V TSV now turns pink if it can be used for the Cute Charm Glitch in Gen IV<br/>
+- If TSV is Cute Charm Glitch compatible, it tells you which Shiny Group<br/>
+- Added download for a list of all Cute Charm Glitch compatible IDs<br/>
+- Corrected Error checks<br/>
+- Mascot icon and better gif<br/>
+- Changelog is now in a spoiler<br/><br/>
+    <strong>Sept. 8 2018:</strong><br/>
+
+- Added Gen III to V support.<br/>
+- Changed some text and site structure to reflect the support mentioned above.<br/>
+- Added a background.<br/>
+- Changed Mascot (because shiny Shuckle).<br/>
+- Other minor changes.
+  </div>
+    </div>		
+    </div>
 	</div>
 	
 </body>
