@@ -35,7 +35,6 @@
 	  display: none;
 	  margin-left: 300px;
       height: 0px;
-  	  overflow: hidden;
 }
 .spoiler {
   border-radius: 12px;
@@ -59,8 +58,8 @@
 }
 
 .spoiler > .spoiler-content {
-  display: none;
-}
+		display: none;
+	}
 
 .spoiler.open > .spoiler-content {
   display: block;
@@ -71,7 +70,7 @@
 }
 	</style>
 </head>
-<body background="resources/bg.png" style="overflow: hidden; height: 1099px">
+<body background="resources/bg.png" style="height: 1099px">
 	<div class="page index" id="root">
 		<div class="container">
 			<div class="intro"><br/>
@@ -97,13 +96,13 @@
 							<div class="col-xs-6 col-sm-2 top-col">
 								<div class="form-group" id="group_tid">
 									<label class="control-label" for="input_tid">Trainer ID</label>
-									<input type="number" class="form-control" id="input_tid" placeholder="TID" />
+									<input type="number" class="form-control" id="input_tid" placeholder="TID" max="65535" />
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-2 top-col" id="group_sid">
 								<div class="form-group">
 									<label class="control-label" for="input_sid">Secret ID</label>
-									<input type="number" class="form-control" id="input_sid" placeholder="SID" />
+									<input type="number" class="form-control" id="input_sid" placeholder="SID" max="65535" />
 								</div>
 							</div>
 							<div class="col-xs-3 col-xs-offset-3 col-sm-offset-0 col-sm-2 col-button">
@@ -138,7 +137,7 @@
 							<div class="col-xs-12 col-sm-4 top-col">
 								<div class="form-group" id="group_pid">
 									<label class="control-label" for="input_pid">Egg PID (e.g. 5C5E0FA8)</label>
-									<input type="text" class="form-control" id="input_pid" placeholder="PID" maxlength="10" />
+									<input type="text" class="form-control" id="input_pid" placeholder="PID" maxlength="8" style="text-transform: uppercase" />
 								</div>
 							</div>
 							<div class="col-xs-3 col-xs-offset-3 col-sm-offset-0 col-sm-2 col-button">
@@ -174,6 +173,10 @@
   <div class="spoiler-header"><center><strong><u>Changelog:</u></strong></center></div>
   <button class="btn btn-block btn-default spoiler-toggle" style="width: 40px; height: 25px; font-size: x-small;" id="spt" onclick="btnToggle()">Show</button>
   <div class="spoiler-content">
+  	<strong>May 5 2019:</strong><br/>
+- Fixed textboxes value limit<br/>
+- PID auto-capitalizes<br/>
+- Added ability to scroll down the page<br/><br/>
     <strong>Dec. 23 2018:</strong><br/>
 - Gen III-V TSV now turns pink if it can be used for the Cute Charm Glitch in Gen IV<br/>
 - If TSV is Cute Charm Glitch compatible, it tells you which Shiny Group<br/>
