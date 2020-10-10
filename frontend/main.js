@@ -16,11 +16,10 @@ $(function()
 	var $cc_img = $("#ccimg");
 	var $ccg_img = $("#ccgimg");
 	
-	var $res_tsv = $("#result_tsv");
-	var $res_tsvttf = $("#result_tsvttf");
-	var $res_esv = $("#result_esv");
-	var $res_esvttf = $("#result_esvttf");
-	
+	var $res_tsv4096 = $("#result_tsv4096");
+	var $res_tsv8192 = $("#result_tsv8192");
+	var $res_esv4096 = $("#result_esv4096");
+	var $res_esv8192 = $("#result_esv8192");
 	
 	$btn_calc_tsv.click(function()
 	{
@@ -47,61 +46,91 @@ $(function()
 				
 		var tid = parseInt(tid_val, 10);
 		var sid = parseInt(sid_val, 10);
-		var tsv = (tid ^ sid) >>> 4;
-		var tsvttf = (tid ^ sid) >>> 3;
+		var tsv4096 = (tid ^ sid) >>> 4;
+		var tsv8192 = (tid ^ sid) >>> 3;
 		
 		//Fixed Error Checks
 		if (tid < 0 || tid > 65535) {
-			$res_tsv.text(err_str);
-			$res_tsvttf.text(err_str);
+			$res_tsv4096.text(err_str);
+			$res_tsv8192.text(err_str);
 			$grp_tid.addClass("has-error");
 			has_error = true;
 		}
 		if (sid < 0 || sid > 65535) {
-			$res_tsv.text(err_str);
-			$res_tsvttf.text(err_str);
+			$res_tsv4096.text(err_str);
+			$res_tsv8192.text(err_str);
 			$grp_sid.addClass("has-error");
 			has_error = true;
 		}
 		
 		if (has_error == true) {
-			$res_tsv.text("-");
-			$res_tsvttf.text("-");
-			$res_tsvttf.css({'color':'default'});
+			$res_tsv4096.text("-");
+			$res_tsv8192.text("-");
+			$res_tsv8192.css({'color':'default'});
 			$inp_tid.css({'border-color':'default'});
 			$inp_sid.css({'border-color':'default'});
 			return false;
 		}
 		
 		// More minor error checking.
-		if (tsv > 4095) {
-			$res_tsv.text(err_str);
-			$res_tsvttf.text(err_str);
+		if (tsv4096 > 4095) {
+			$res_tsv4096.text(err_str);
+			$res_tsv8192.text(err_str);
 			return false;
 		}
-		if (tsvttf > 8191) {
-			$res_tsv.text(err_str);
-			$res_tsvttf.text(err_str);
+		if (tsv8192 > 8191) {
+			$res_tsv4096.text(err_str);
+			$res_tsv8192.text(err_str);
 			return false;
 		}
 		
-		$res_tsv.text(tsv);
-		$res_tsvttf.text(tsvttf);
+		$res_tsv4096.text(tsv4096);
+		$res_tsv8192.text(tsv8192);
 		
-		var g = new Array(" (Shiny Group 1)", " (Shiny Group 2)", " (Shiny Group 3)", " (Shiny Group 4)");
-		var i = new Array("resources/ccg1.png", "resources/ccg2.png", "resources/ccg3.png", "resources/ccg4.png")
-		
-		if (tsvttf < 4) {
-			$res_tsvttf.css({'color':'rgb(249, 92, 221)'});
+		var ccTSV = new Array(0, 1, 2, 3, 6, 7, 8, 9, 9, 10, 11, 12, 18, 19, 20, 21, 25, 26, 27, 28);
+		var ccText = " (";
+		var ccTable = new Array(0, 0);
+		if (ccTSV.includes(tsv8192)) {
+			$res_tsv8192.css({'color':'rgb(249, 92, 221)'});
 			$inp_tid.css({'border-color':'rgb(249, 92, 221)'});
 			$inp_sid.css({'border-color':'rgb(249, 92, 221)'});
-			var res = tsvttf + g[tsvttf].sup();
-			document.getElementById("result_tsvttf").innerHTML = res;
-			document.getElementById("ccgimg").src=i[tsvttf];
-			//$ccg_img.changeSource(i[tsvttf])
+			var ccGroup = ccTSV.indexOf(tsv8192);
+			var ccGroup2 = ccTSV.lastIndexOf(tsv8192);
+			if (ccGroup < 4) {
+				ccText += "Male | Any% ♀ | ";
+				ccTable[0] = 0;
+			} else {
+				ccText += "Female | ";
+				if (ccGroup > 3 && ccGroup < 8) {
+					ccText += "87.5% ♂ | ";
+					ccTable[0] = 1;
+				} else if (ccGroup > 7 && ccGroup < 12) {
+					ccText += "75% ♂ | ";
+					ccTable[0] = 2;
+				} else if (ccGroup > 11 && ccGroup < 16) {
+					ccText += "50% ♂ | ";
+					ccTable[0] = 3;
+				} else if (ccGroup > 15) {
+					ccText += "25% ♂ | ";
+					ccTable[0] = 4;
+				}
+			}
+			ccTable[1] = (ccGroup % 4);
+			ccText += "Group " + (ccTable[1] + 1) + ")";
+			var ccText2 = "";
+			if (tsv8192 == 9) {
+				tsv8192 += "*";
+				$("#tsv9info").removeClass("collapse");
+				ccText2 += " (Female | 75% ♂ | Group " + ((ccGroup2 % 4) + 1) + ")"
+			} else {
+				$("#tsv9info").addClass("collapse");
+			}
+			var res = tsv8192 + ccText.sup() + ccText2.sub();
+			document.getElementById("result_tsv8192").innerHTML = res;
+			tableText(ccTable[0], ccTable[1]);
 			$cc_img.removeClass("collapse");
 		} else {
-			$res_tsvttf.css({'color':'default'});
+			$res_tsv8192.css({'color':'default'});
 			$inp_tid.css({'border-color':'default'});
 			$inp_sid.css({'border-color':'default'});
 			$cc_img.addClass("collapse");
@@ -191,4 +220,56 @@ function btnToggle() {
   } else {
     x.innerHTML = "Hide";
   }
+}
+function ccimgText(table, column, fill) {
+		var canvas = document.getElementById("ccgimg" + column);
+     var context = canvas.getContext("2d");
+     var imageObj = new Image();
+     imageObj.onload = function(){
+         context.drawImage(imageObj, 0, 0);
+         context.font = "Bold 12pt Calibri";
+		 context.fillStyle = "White";
+         context.fillText("Shiny Group " + (column + 1), 10, 15);
+		 context.font = "10pt Calibri";
+		 context.fillStyle = "Black";
+		 var Natures = new Array("Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", "Serious", "Jolly", "Naive", "Modest",
+        "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"); //List of Natures
+		 var buffers = new Array([0, 7, 0], [2, 0, 0x30], [0, 4, 0x48], [6, 1, 0x90], [0, 7, 0xC8]);
+		 for (n = buffers[table][2] + (column * 8) + ((column == 0) ? buffers[table][0] : 0); n <= buffers[table][2] + (column * 8) + (7 - ((column == 3) ? buffers[table][1] : 0)); n++) {
+			var y = n % (buffers[table][2] + (column * 8) + ((column == 0) ? ((table == 0) ? 8 : 0) : 0));
+			var x = n % (buffers[table][0] + buffers[table][2] + ((table == 0) ? 25 : 0));
+			
+			if (table == 1 && column == 3 && (y > 2)) {
+				context.font = "Italic 10pt Calibri";
+				context.fillText("000000" + ((n.toString(16).length == 2) ? n.toString(16) : "0" + n.toString(16)).toUpperCase() + " " + Natures[x % 25], 3, 33 + (y * 17.5));
+			} else if (table == 2 && column == 0 && (y < 3)) {
+				context.font = "Italic 10pt Calibri";
+				context.fillText("000000" + ((n.toString(16).length == 2) ? n.toString(16) : "0" + n.toString(16)).toUpperCase() + " " + Natures[x + 22], 3, 33 + (y * 17.5));
+			} else {
+				context.font = "10pt Calibri";
+				context.fillText("000000" + ((n.toString(16).length == 2) ? n.toString(16) : "0" + n.toString(16)).toUpperCase() + " " + Natures[x - ((table == 2) ? 3 : 0)], 3, 33 + (y * 17.5));
+			}
+		}
+		if (fill) {
+			context.beginPath();
+      context.rect(0, 0, 111, 162);
+      context.fillStyle = '#f95cdd30';
+      context.fill();
+      context.lineWidth = 0;
+      context.strokeStyle = '#f95cdd00';
+      context.stroke();
+		}
+     };
+     imageObj.src = "resources/sg.png"; 
+	}
+function tableText(table, column) {
+	var ccGroupText = new Array("Male Lead Any% ♀", "Female Lead 87.5% ♂", "Female Lead 75% ♂", "Female Lead 50% ♂", "Female Lead 25% ♂");
+	document.getElementById("ShinyGroup").innerHTML = ccGroupText[table];
+	for (i = 0; i < 4; i++) {
+		if (i == column) {
+			ccimgText(table, i, true);
+		} else {
+		ccimgText(table, i, false);
+		}
+	}	
 }

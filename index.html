@@ -78,12 +78,13 @@
 				<img src="resources/title.png" alt="pokemon-font" border="0" style="text-decoration: underline"/></center></u><br/>
 				<!--<h1 class="auto-title">Pokémon Shiny Value (TSV/ESV) Checker</h1><br/>-->
 				<!--<p class="languages"><a href="index-en.php" class="active">English</a> <a href="index-jp.php" class="">æ—¥æœ¬èªž</a></p>-->
-				<a href="https://www.furretturret.com/resources/hd/shiny"><img src="resources/shuckle.gif" width="109" height="96" class="mascot" /></a>
+				<a href="https://twitter.com/TilableToast/status/1214293950774665216?s=20"><img src="resources/shuckle.gif" width="109" height="96" class="mascot" /></a>
 				<div class="intro-text"><p>This tool will let you check the "shiny value" of a player or of an egg (a value between 0 and 8191 for Gen III to V, and between 0 and 4095 for Gen VI and up). If the egg and the player's SVs are the same, the resulting Pokémon will be hatched shiny. This tool can also calculate Pokémon Shiny Value (PSV), just use the ESV section.</p><p><strong>Note:</strong> This tool is only accurate for Pokémon games Gen III and up. Don't input decimal PID—convert them to hexadecimal first.</p>
 					<p>If the calculated TSV becomes <span class="auto-style1">pink</span>, that means the 
 					inputed IDs can be used for the Cute Charm Glitch in Gen IV 
-					(DPPtHGSS). For a full list click
-					<a href="resources/Cute%20Charm%20Glitch%20IDs.zip">here</a>.</p><!--<p>For more information, view the <a href="http://www.reddit.com/r/SVExchange/comments/1xp9km/tsvesv_checker_tool_for_when_pok%C3%A9check_gen6/">info topic on r/svexchange</a>. You can download this page using your browser, and it should work offlineâ€”or you can use <a href="https://dl.dropboxusercontent.com/u/12206225/SVHelper.zip">Kaphotics' Windows SV Helper</a>.</p>--></div>
+					(DPPtHGSS).<br/> Cute Charm information will be given as (Gender of Lead | Target Gender Ratio | Shiny Group).</p>
+					<div id="tsv9info" class="collapse"><p><span class="auto-style1">* = The TSV of 9 can be used in two Shiny Groups.</span></p></div>
+					<!--<p>For more information, view the <a href="http://www.reddit.com/r/SVExchange/comments/1xp9km/tsvesv_checker_tool_for_when_pok%C3%A9check_gen6/">info topic on r/svexchange</a>. You can download this page using your browser, and it should work offlineâ€”or you can use <a href="https://dl.dropboxusercontent.com/u/12206225/SVHelper.zip">Kaphotics' Windows SV Helper</a>.</p>--></div>
 			</div>
 		</div>
 		<br/>
@@ -96,13 +97,13 @@
 							<div class="col-xs-6 col-sm-2 top-col">
 								<div class="form-group" id="group_tid">
 									<label class="control-label" for="input_tid">Trainer ID</label>
-									<input type="number" class="form-control" id="input_tid" placeholder="TID" max="65535" />
+									<input type="number" class="form-control" id="input_tid" placeholder="TID" min="0" max="65535" />
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-2 top-col" id="group_sid">
 								<div class="form-group">
 									<label class="control-label" for="input_sid">Secret ID</label>
-									<input type="number" class="form-control" id="input_sid" placeholder="SID" max="65535" />
+									<input type="number" class="form-control" id="input_sid" placeholder="SID" min="0" max="65535" />
 								</div>
 							</div>
 							<div class="col-xs-3 col-xs-offset-3 col-sm-offset-0 col-sm-2 col-button">
@@ -114,13 +115,13 @@
 							<div class="col-xs-3 col-sm-3 col-result">
 								<div class="form-group" id="genIII">
 									<label class="control-label" for="genIII">Gen III-V Trainer Shiny Value (TSV)</label>
-									<span class="result" id="result_tsvttf">-</span>
+									<span class="result" id="result_tsv8192">-</span>
 								</div>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-result" id="genVI">
 								<div class="form-group">
 									<label class="control-label" for="genVI">Gen VI+ Trainer Shiny Value (TSV)</label>
-									<span class="result" id="result_tsv">-</span>
+									<span class="result" id="result_tsv4096">-</span>
 								</div>
 							</div>
 						</div>
@@ -128,7 +129,9 @@
 				</div>
 			</div>
 			<div id="ccimg" class="collapse"><center>
-				<img src="resources/ccg.png" class="ccg" id="ccgimg"/>
+				<!--<img src="resources/ccg.png" class="ccg" id="ccgimg"/>-->
+				<strong><span id="ShinyGroup">-</span></strong><br/>
+				<canvas id="ccgimg0" width="110" height="162"></canvas><canvas id="ccgimg1" width="110" height="162"></canvas><canvas id="ccgimg2" width="110" height="162"></canvas><canvas id="ccgimg3" width="111" height="162"></canvas>
 				</center><br/></div>
 			<div class="band green">
 				<div class="container">
@@ -173,6 +176,10 @@
   <div class="spoiler-header"><center><strong><u>Changelog:</u></strong></center></div>
   <button class="btn btn-block btn-default spoiler-toggle" style="width: 40px; height: 25px; font-size: x-small;" id="spt" onclick="btnToggle()">Show</button>
   <div class="spoiler-content">
+    <strong>Oct. 9 2020:</strong><br/>
+- Added Female Leads into the calculations<br/>
+- Improved Cute Charm table, etc.<br/>
+- Updated Shuckle gif link<br/><br/>
   	<strong>May 5 2019:</strong><br/>
 - Fixed textboxes value limit<br/>
 - PID auto-capitalizes<br/>
